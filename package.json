@@ -1,0 +1,20 @@
+{
+  "name": "32065proyfinal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigoatg/32065ProyFinal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigoatg/32065ProyFinal/issues"
+  },
+  "homepage": "https://github.com/rodrigoatg/32065ProyFinal#readme"
+}
