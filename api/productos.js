@@ -4,6 +4,18 @@ export class ProductosApi {
         this.id = 0
     }
 
+    openFile(name){
+        this.fs = require('fs'); 
+        this.fs.readFile(name, 'utf-8', (error, contenido) => {
+            if (error) {
+                throw new Error('Error en lectura');
+            }
+        
+            console.log('Lectura exitosa');
+            this.info = JSON.parse(contenido);
+        });
+    }
+
     save(objeto){
 
         const nuevoId = this.info[this.info.length() - 1] + 1;
@@ -61,4 +73,16 @@ export class ProductosApi {
             }
         });
     }
+
+    updateById(idRecibido, newProd){
+        for( const producto of this.info){
+            if(producto.id === idRecibido){
+                producto = newProd;
+            }
+        }
+        return null
+    }
 }
+
+export const productosCargados = new ProductosApi();
+productosCargados.openFile("../files/productos.txt");

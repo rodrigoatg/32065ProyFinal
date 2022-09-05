@@ -1,23 +1,23 @@
+import { carritoCargado } from '../api/carrito';
+import { productosCargados } from '../api/productos';
+
 const express = require('express');
 const { Router } = express;
 
 export const routerProductos = new Router();
 export const routerCarrito = new Router();
 
-
 routerProductos.use(express.json());
 routerCarrito.use(express.json());
 
 //PRODUCTOS
-const productos = [];
-
 routerProductos.get('/:id', (req, res) =>{
     const { id } = req.params;
     const productoBuscado = {};
     if (id === "" || isNull(id)){
-        res.send({productos: productos.getAll()});
+        res.send({productos: productosCargados.getAll()});
     }else{
-        productoBuscado = productos.getById(id) ;
+        productoBuscado = productosCargados.getById(id) ;
         if(!isNull(productoBuscado)){
             res.send({ buscado: productoBuscado });
         }else{
@@ -27,18 +27,15 @@ routerProductos.get('/:id', (req, res) =>{
 });
 routerProductos.post('/', (req, res) => {
     const { producto } = req.body;
-    const newId = parseInt(productos.length) + 1;
-    productos.push({id: newId, ...producto});
-    res.send(productos[parseInt(productos.length) - 1]);
-    //guardar al archivo
+    const newId = parseInt(productosCargados.length) + 1;
+    productosCargados.save({id: newId, ...producto});
+    res.send("Producto guardado exitosamente");
 });
 routerProductos.put('/:id', (req, res) =>{
     const { producto } = req.body;
     const { id } = req.params;
     const posProductoBuscado = 0;
-    
-    posProductoBuscado = productos.getPosById(id) ;
-    productos[pos] = producto;
+    posProductoBuscado = productosCargados.updateById(id, producto) ;
 });
 routerProductos.delete('/:id', (req, res) =>{
     const { id } = req.params;

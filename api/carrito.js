@@ -1,13 +1,24 @@
+import {ProductosApi} from './productos';
 export class CarritoApi {
     constructor() {
         this.carrito = []
         this.id = 0
     }
 
+    openFile(name){
+        this.fs = require('fs'); 
+        this.fs.readFile(name, 'utf-8', (error, contenido) => {
+            if (error) {
+                throw new Error('Error en lectura');
+            }
+        
+            console.log('Lectura exitosa');
+            this.info = JSON.parse(contenido);
+        });
+    }
+
     save(objeto){
-
         const nuevoId = this.info[this.info.length() - 1] + 1;
-
         const nuevoObjeto = {nuevoId, ...objeto};
 
         this.info = {...this.info, ...nuevoObjeto};
@@ -62,3 +73,6 @@ export class CarritoApi {
         });
     }
 }
+
+export const carritoCargado = new CarritoApi();
+carritoCargados.openFile("../files/carrito.txt");
