@@ -10,15 +10,16 @@ class ContenedorMongoDb {
     }
 
     async listar(id) {
-        
+        return await this.coleccion.find({id: id })
     }
 
     async listarAll() {
-        
+        return await this.coleccion.find({})
     }
 
     async guardar(nuevoElem) {
-        
+        const newElement = new mongoose.model(nombreColeccion, esquema);
+        await this.coleccion.save(newElement);
     }
 
     async actualizar(nuevoElem) {
@@ -26,11 +27,11 @@ class ContenedorMongoDb {
     }
 
     async borrar(id) {
-        
+        await this.coleccion.deleteOne({ id: id});
     }
 
     async borrarAll() {
-        
+        await this.coleccion.deleteOne({});
     }
 }
 
